@@ -25,7 +25,7 @@ I checked the game works in Firefox 62.0.3 and Chrome 69.0.3497.100
 
 ### CSS
 
-I used CSS grid, so the browser doesn't support CSS grid, then the game doesn't work well.
+I used CSS grid, so, if the browser doesn't support CSS grid, then the game doesn't work well.
 
 ### React
 
