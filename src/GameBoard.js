@@ -1,3 +1,6 @@
+import React from "react";
+import "./GameBoard.css"
+
 const Card = props => {
   const handleClicked = () => {
     props.handler(props.card);
@@ -11,7 +14,7 @@ const Card = props => {
   );
 };
 
-const shuffle  = l => {
+const shuffle = l => {
   const len = l.length;
   let indices = [...Array(len).keys()];
   let a = [];
@@ -21,15 +24,13 @@ const shuffle  = l => {
     indices = indices.filter(e => e !== indices[j]);
   }
   return a;
-}
+};
 
-const cards = (n) => {
+const cards = n => {
   const m = Math.floor(n / 2);
-  const card = [...Array(m).keys()].map(e =>
-    String.fromCodePoint(0x1f347 + e)
-  );
+  const card = [...Array(m).keys()].map(e => String.fromCodePoint(0x1f347 + e));
   return shuffle([...card, ...card]);
-}
+};
 
 const createCards = () => {
   return cards(12).map((e, idx) => ({
@@ -38,7 +39,7 @@ const createCards = () => {
     selected: false,
     matched: false
   }));
-}
+};
 
 class GameBoard extends React.Component {
   constructor(props) {
@@ -63,8 +64,8 @@ class GameBoard extends React.Component {
         this.setState({
           cards: this.state.cards.map(c =>
             c.id === card.id || c.id === selected_card.id
-            ? { ...c, selected: true, matched: true }
-            : c
+              ? { ...c, selected: true, matched: true }
+              : c
           )
         });
       } else {
@@ -72,8 +73,8 @@ class GameBoard extends React.Component {
           this.setState({
             cards: this.state.cards.map(c =>
               c.id === card.id || c.id === selected_card.id
-              ? { ...c, selected: false, matched: false }
-              : c
+                ? { ...c, selected: false, matched: false }
+                : c
             )
           });
         }, 500);
@@ -95,4 +96,4 @@ class GameBoard extends React.Component {
   }
 }
 
-ReactDOM.render(<GameBoard />, document.getElementById("root"));
+export default GameBoard;
