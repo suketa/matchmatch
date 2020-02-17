@@ -13,9 +13,10 @@ https://hackernoon.com/how-to-create-a-pwa-game-using-preact-in-5-steps-tutorial
 
 ## How to play
 
-Open index.html in browser if your browser is Firefox.
-
-If your browser is Chrome, run `./httpsrv.rb` and access http://localhost:28080/index.html
+```
+yarn install
+yarn start
+```
 
 ## Remark
 
@@ -26,11 +27,6 @@ I checked the game works in Firefox 62.0.3 and Chrome 69.0.3497.100
 ### CSS
 
 I used CSS grid, so, if the browser doesn't support CSS grid, then the game doesn't work well.
-
-### React
-
-I used React CDN development version because I am learning React by implementing this game.
-I'm a React newbie, so the code is not so good.
 
 ### Restriction
 
