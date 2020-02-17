@@ -11,22 +11,42 @@ const Card = props => {
   );
 };
 
+const shuffle  = l => {
+  const len = l.length;
+  let indices = [...Array(len).keys()];
+  let a = [];
+  for (let k = 0, n = len; k < len; k++, n--) {
+    let j = Math.floor(Math.random() * n);
+    a[k] = l[indices[j]];
+    indices = indices.filter(e => e !== indices[j]);
+  }
+  return a;
+}
+
+const cards = (n) => {
+  const m = Math.floor(n / 2);
+  const card = [...Array(m).keys()].map(e =>
+    String.fromCodePoint(0x1f347 + e)
+  );
+  return shuffle([...card, ...card]);
+}
+
+const createCards = () => {
+  return cards(12).map((e, idx) => ({
+    id: idx,
+    value: e,
+    selected: false,
+    matched: false
+  }));
+}
+
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: this.createCards()
+      cards: createCards()
     };
     this.handleClicked = this.handleClicked.bind(this);
-  }
-
-  createCards() {
-    return this.cards(12).map((e, idx) => ({
-      id: idx,
-      value: e,
-      selected: false,
-      matched: false
-    }));
   }
 
   handleClicked(card) {
@@ -43,8 +63,8 @@ class GameBoard extends React.Component {
         this.setState({
           cards: this.state.cards.map(c =>
             c.id === card.id || c.id === selected_card.id
-              ? { ...c, selected: true, matched: true }
-              : c
+            ? { ...c, selected: true, matched: true }
+            : c
           )
         });
       } else {
@@ -52,34 +72,13 @@ class GameBoard extends React.Component {
           this.setState({
             cards: this.state.cards.map(c =>
               c.id === card.id || c.id === selected_card.id
-                ? { ...c, selected: false, matched: false }
-                : c
+              ? { ...c, selected: false, matched: false }
+              : c
             )
           });
         }, 500);
       }
     }
-  }
-
-  cards(n) {
-    const m = Math.floor(n / 2);
-    const card = [...Array(m).keys()].map(e =>
-      String.fromCodePoint(0x1f347 + e)
-    );
-    // return this.shuffle([...card, ...card, String.fromCodePoint(0x1F61D)]);
-    return this.shuffle([...card, ...card]);
-  }
-
-  shuffle(l) {
-    const len = l.length;
-    let indices = [...Array(len).keys()];
-    let a = [];
-    for (let k = 0, n = len; k < len; k++, n--) {
-      let j = Math.floor(Math.random() * n);
-      a[k] = l[indices[j]];
-      indices = indices.filter(e => e !== indices[j]);
-    }
-    return a;
   }
 
   render() {
