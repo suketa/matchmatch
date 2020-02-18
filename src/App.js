@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import "./App.css";
-import GameBoard, { GameBoardF } from "./components/GameBoard";
+import GameBoard from "./components/GameBoard";
 import rootReducers from "./reducers";
 
 function App() {
@@ -12,7 +12,6 @@ function App() {
     <div>
       <Provider store={store}>
         <GameBoard />
-        <GameBoardF />
       </Provider>
     </div>
   );

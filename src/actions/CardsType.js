@@ -17,9 +17,8 @@ export const matchCard = (id, value) => {
   }
 }
 
-export const hideCard = (id) => {
+export const hideCard = () => {
   return {
-    type: HIDE_CARD,
-    id
+    type: HIDE_CARD
   }
 }

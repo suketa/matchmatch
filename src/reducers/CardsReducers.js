@@ -1,4 +1,4 @@
-import { SELECT_CARD, MATCHE_CARD } from "../actions/CardsType";
+import { SELECT_CARD, MATCHE_CARD, HIDE_CARD } from "../actions/CardsType";
 
 const shuffle = l => {
   const len = l.length;
@@ -31,8 +31,8 @@ const initStatus = () => {
   return {
     cards: shuffleCards(),
     reverse: []
-  }
-}
+  };
+};
 
 const CardsReducers = (state = initStatus(), action) => {
   const { cards } = state;
@@ -52,6 +52,7 @@ const CardsReducers = (state = initStatus(), action) => {
         if (pair.value === action.value) {
           return {
             ...state,
+            reverse: [],
             cards: cards.map(card =>
               card.id === action.id || card.id === pair.id
                 ? { ...card, matched: true }
@@ -61,16 +62,22 @@ const CardsReducers = (state = initStatus(), action) => {
         } else {
           return {
             ...state,
-            cards: cards.map(card =>
-              card.id === action.id || card.id === pair.id
-              ? { ...card, matched: false, selected: false }
-                : card
-            ),
             reverse: [action.id, pair.id]
-          }
+          };
         }
       }
       return state;
+    case HIDE_CARD:
+      const new_cards = cards.map(card =>
+        state.reverse.includes(card.id)
+          ? { ...card, matched: false, selected: false }
+          : card
+      );
+      return {
+        ...state,
+        cards: new_cards,
+        reverse: []
+      };
     default:
       return state;
   }
