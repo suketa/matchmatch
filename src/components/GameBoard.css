@@ -1,0 +1,11 @@
+.board {
+  margin-left: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  align-content: space-around;
+  justify-content: space-between;
+  height: 40em;
+  width: 40em;
+}

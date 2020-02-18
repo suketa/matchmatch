@@ -1,18 +1,22 @@
 import React from "react";
+import { useSelector } from "react-redux"
+import Card, { CardF } from "./Card"
 import "./GameBoard.css"
 
-const Card = props => {
-  const handleClicked = () => {
-    props.handler(props.card);
-  };
-  const numberClass = props.card.selected ? "number-shown" : "number-hidden";
+export const GameBoardF = () => {
+  const cards = useSelector(state => state.CardsReducers.cards)
 
   return (
-    <div className="card" onClick={handleClicked}>
-      <div className={numberClass}>{props.card.value}</div>
+    <div>
+      <h1>matchmatch</h1>
+      <div className="board">
+        {cards.map(e => (
+          <CardF card={e} key={e.id} />
+        ))}
+      </div>
     </div>
   );
-};
+}
 
 const shuffle = l => {
   const len = l.length;
@@ -41,6 +45,7 @@ const createCards = () => {
   }));
 };
 
+
 class GameBoard extends React.Component {
   constructor(props) {
     super(props);
@@ -64,8 +69,8 @@ class GameBoard extends React.Component {
         this.setState({
           cards: this.state.cards.map(c =>
             c.id === card.id || c.id === selected_card.id
-              ? { ...c, selected: true, matched: true }
-              : c
+            ? { ...c, selected: true, matched: true }
+            : c
           )
         });
       } else {
@@ -73,8 +78,8 @@ class GameBoard extends React.Component {
           this.setState({
             cards: this.state.cards.map(c =>
               c.id === card.id || c.id === selected_card.id
-                ? { ...c, selected: false, matched: false }
-                : c
+              ? { ...c, selected: false, matched: false }
+              : c
             )
           });
         }, 500);
