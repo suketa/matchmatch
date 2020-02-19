@@ -1,4 +1,4 @@
-import { SELECT_CARD, MATCHE_CARD, HIDE_CARD } from "../actions/CardsType";
+import { SELECT_CARD, HIDE_CARD } from "../actions/CardsType";
 
 const shuffle = l => {
   const len = l.length;
@@ -22,56 +22,42 @@ const shuffleCards = () => {
   return cards(12).map((e, idx) => ({
     id: idx,
     value: e,
-    selected: false,
-    matched: false
+    selected: false
   }));
 };
 
 const initStatus = () => {
   return {
     cards: shuffleCards(),
+    preSelected: null,
     reverse: []
   };
 };
 
 const CardsReducers = (state = initStatus(), action) => {
-  const { cards } = state;
+  const { cards, preSelected } = state;
   switch (action.type) {
     case SELECT_CARD:
+      let newPreSelected = null;
+      let newReverse = [];
+      if (preSelected) {
+        if (preSelected.value !== action.value) {
+          newReverse = [preSelected.id, action.id];
+        }
+      } else {
+        newPreSelected = { id: action.id, value: action.value };
+      }
       return {
         ...state,
         cards: cards.map(card =>
           card.id === action.id ? { ...card, selected: true } : card
-        )
+        ),
+        reverse: newReverse,
+        preSelected: newPreSelected
       };
-    case MATCHE_CARD:
-      let pair = cards.find(
-        card => card.selected && !card.matched && card.id !== action.id
-      );
-      if (pair) {
-        if (pair.value === action.value) {
-          return {
-            ...state,
-            reverse: [],
-            cards: cards.map(card =>
-              card.id === action.id || card.id === pair.id
-                ? { ...card, matched: true }
-                : card
-            )
-          };
-        } else {
-          return {
-            ...state,
-            reverse: [action.id, pair.id]
-          };
-        }
-      }
-      return state;
     case HIDE_CARD:
       const new_cards = cards.map(card =>
-        state.reverse.includes(card.id)
-          ? { ...card, matched: false, selected: false }
-          : card
+        state.reverse.includes(card.id) ? { ...card, selected: false } : card
       );
       return {
         ...state,
