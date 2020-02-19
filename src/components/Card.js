@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { selectCard, matchCard, hideCard } from "../actions/CardsType";
+import { selectCard, hideCard } from "../actions/CardsType";
 import useAsyncHide from "../asyncactions/useAsyncHide";
 import "./Card.css";
 
@@ -11,9 +11,8 @@ export const Card = ({ card }) => {
   const asyncHide = useAsyncHide();
 
   const handleClick = card => {
-    if (!card.matched) {
-      dispatch(selectCard(card.id));
-      dispatch(matchCard(card.id, card.value));
+    if (!card.selected) {
+      dispatch(selectCard(card.id, card.value));
       asyncHide(hideCard());
     }
   };
