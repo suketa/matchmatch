@@ -8,7 +8,7 @@ export const GameBoard = () => {
 
   return (
     <div>
-      <h1>matchmatch</h1>
+      <h1>Memory</h1>
       <div className="board">
         {cards.map(e => (
           <Card card={e} key={e.id} />
