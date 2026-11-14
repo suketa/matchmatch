@@ -1,0 +1,7 @@
+{
+  "path": ["src", "index.html"],
+  "threshold": 0,
+  "minTokens": 30,
+  "reporters": ["console"],
+  "exitCode": 1
+}
