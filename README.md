@@ -14,8 +14,16 @@ https://hackernoon.com/how-to-create-a-pwa-game-using-preact-in-5-steps-tutorial
 ## How to play
 
 ```
-yarn install
-yarn start
+npm install
+npm start
+```
+
+## Check
+
+```
+npm test        # reducer test
+npm run lint    # ESLint + eslint-plugin-react-hooks
+npm run jscpd   # fails if any duplicated code
 ```
 
 ## Remark
